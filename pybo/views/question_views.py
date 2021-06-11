@@ -1,3 +1,4 @@
+from ..forms import QuestionForm, AnswerForm
 from datetime import datetime
 
 from flask import Blueprint, render_template, request, url_for
@@ -21,9 +22,10 @@ def _list():
 
 @bp.route('/detail/<int:question_id>/')
 def detail(question_id):
+    form = AnswerForm()
     question = Question.query.get_or_404(question_id)
-    return render_template('question/question_detail.html', question=question)
-
+    return render_template('question/question_detail.html', question=question, form=form)
+    
 @bp.route('/create/', methods=('GET', 'POST'))
 def create():
     form = QuestionForm()
